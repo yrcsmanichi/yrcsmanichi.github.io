@@ -1,0 +1,1833 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CAKRA - LCT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.css"
+    />
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase.js"></script>
+    <link rel="stylesheet" href="./style/style.css" />
+    <script src="./js/config.js"></script>
+    <style>
+      .login-form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border-radius: 5px;
+      }
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      /* CSS untuk input dan textarea */
+      .login-ipt {
+        height: 30px;
+        border: none;
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      .login-ex {
+        border: none;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar"><h1 id="timer">START TIME</h1></nav>
+    <h2>CAKRA</h2>
+    <p style="text-align: center">______________________</p>
+    <img class="img-nav" src="./style/logo.png" alt="">
+    <h1 style="text-align: center">SOAL TES PENGETAHUAN LOMBA CERDAS TANGKAS
+CAKRA 2023</h1>
+
+    <div id="done"></div>
+    <div class="column card">
+      <div id="loginned" style="display: block">
+        <div class="card-header">
+          <h2 class="text-center">Login</h2>
+        </div>
+        <div class="card-body">
+          <form class="login-form">
+            <div class="form-group">
+              <label for="text">Nama Tim:</label>
+              <input
+                type="text"
+                class="form-control login-ipt"
+                id="username"
+                placeholder="Namatim"
+              />
+            </div>
+            <div class="form-group">
+              <label for="text">Asal Sekolah:</label>
+              <input
+                type="text"
+                class="form-control login-ipt"
+                id="asal"
+                placeholder="Namatim"
+              />
+            </div>
+            <div class="form-group">
+              <label for="text">Ketua Tim:</label>
+              <input
+                type="text"
+                class="form-control login-ipt"
+                id="ketuaTeam"
+                placeholder="KetuaTeam"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="password">Aggota tim:</label>
+              <textarea
+                class="login-ex"
+                name="desc"
+                id="anggota"
+                cols="45"
+                rows="10"
+                placeholder="Nama
+nama
+nama"
+              ></textarea>
+            </div>
+            <br />
+            <button
+              class="column btn-submit"
+              type="button"
+              onclick="getUser()"
+              class="btn btn-primary"
+            >
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="column card">
+      <div id="loginned" style="display: block">
+        <div class="card-header">
+          <h2 class="text-center">Cek Nilai</h2>
+        </div>
+        <div class="card-body">
+          <form class="login-form">
+            <div class="form-group">
+              <label for="text">Nama Tim:</label>
+              <input
+                type="text"
+                class="form-control login-ipt"
+                id="cek-nilai-user"
+                placeholder="Namatim"
+              />
+            </div>
+            <br />
+            <button
+              class="column btn-submit"
+              type="button"
+              onclick="CekNIlai()"
+              class="btn btn-primary"
+            >
+              CEK
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <form id="quiz-form" style="display: none">
+      
+      <li class="column card">
+        <pre>
+1. Pada saat terjadinya perang dimana tempat Henry Dunant memberikan pertolongan kepada korban perang?
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question1"
+          value="a"
+        />
+        <span> a. Sekolah</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question1"
+          value="b"
+        />
+        <span> b. Gereja</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question1"
+          value="c"
+        />
+        <span> c. Panti asuhan</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question1"
+          value="d"
+        />
+        <span> d. Rumah sakit</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+2. Seseorang yang diminta mendonorkan darah kepada seseorang dan dia tahu kepada siapa darah tersebut akan diberikan merupakan pengertian dari…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question2"
+          value="a"
+        />
+        <span> a. Donor Darah Peserta (DDP)</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question2"
+          value="b"
+        />
+        <span> b. Donor Darah Sejati (DDS)</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question2"
+          value="c"
+        />
+        <span> c. Donor Darah Sukarela (DDS)</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question2"
+          value="d"
+        />
+        <span> d. Donor Darah Pengganti (DDP)</span><br />
+      </li>
+
+      <li class="column card">
+<pre>
+3. Perhatikan pernyataan dibawah ini ! 
+1. A         a. Nyeri
+2. S         b. Suara
+3. N        c. Tidak Respon
+4. T        d. Awas
+Dibawah ini, pasangkanlah singkatan dan keterangan dari ASNT dengan benar ....
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question3"
+          value="a"
+        />
+        <span> a. 3 dengan a</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question3"
+          value="b"
+        />
+        <span> b. 2 dengan c</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question3"
+          value="c"
+        />
+        <span> c. 1 dengan b</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question3"
+          value="d"
+        />
+        <span> d. 4 dengan a</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+4.  Perhatikan pernyataan berikut !
+1) Merupakan satu-satunya Perhimpunan Nasional Palang Merah, Bulan Sabit Merah atau Kristal Merah di negaranya.
+2) Diakui oleh pemerintah yang sah di negaranya dengan dasar Konvensi Jenewa dan Undang-Undang Nasional.
+3) Tidak menerima anggota staf yang memiliki ras, agama, dan pandangan politik yang berbeda-beda
+4) Memakai nama dan lambang yang bebas milik organisasi lain
+5) Terorganisasi dalam menjalankan tugasnya dan dilaksanakan di seluruh wilayah negaranya
+Pernyataan diatas yang merupakan syarat diakuinya suatu perhimpunan nasional adalah…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question4"
+          value="a"
+        />
+        <span> a. 1,2,3</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question4"
+          value="b"
+        />
+        <span> b. 2,3,5</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question4"
+          value="c"
+        />
+        <span> c. 2,3,4</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question4"
+          value="d"
+        />
+        <span> d. 1,2,5</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+5. Yang merupakan pengertian dari mitigasi yaitu… dan salah satu contoh dari mitigasi adalah….
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question5"
+          value="a"
+        />
+        <span> a. Upaya yang harus dilakukan setelah bencana terjadi. Contohnya membangun kembali gedung yang runtuh</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question5"
+          value="b"
+        />
+        <span> b. Upaya penggunaan kemampuan untuk secara tepat dan cepat merespon bencana. Contohnya adalah Pembangunan tanggul banjir</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question5"
+          value="c"
+        />
+        <span> c. Upaya untuk mengurangi akibat ancaman bencana. Contohnya pengelolaan air bersih</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question5"
+          value="d"
+        />
+        <span> d. Upaya penggunaan kemampuan secara tepat. Contohnya tindakan pencarian dan penyelamatan atau search and rescue (SAR).</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+6. Perhatikan pernyataan di bawah ini!
+a) Jujur dan bertanggung jawab
+b) Tidak dibutuhkan kemampuan bersosialisasi
+c) Kemampuan nyata terukur sesuai sertifikasi
+d) Tidak dibutuhkan kematangan emosi
+e) Mempunyai rasa bangga
+Dari pernyataan diatas, poin mana saja yang merupakan kualifikasi penolong pertama .....
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question6"
+          value="a"
+        />
+        <span> a. a, b, dan c</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question6"
+          value="b"
+        />
+        <span> b. c, d, dan e</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question6"
+          value="c"
+        />
+        <span> c. a, c, dan e</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question6"
+          value="d"
+        />
+        <span> d. Semua benar</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+7. Perhimpunan PMI lahir  pada tanggal...
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question7"
+          value="a"
+        />
+        <span> a. 17 September 1946</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question7"
+          value="b"
+        />
+        <span> b. 17 September 1945</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question7"
+          value="c"
+        />
+        <span> c. 17 Oktober 1945</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question7"
+          value="d"
+        />
+        <span> d. 17 September 1947</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+8.  Perhatikan uraian berikut.
+1)      Kemanusiaan	6) Keadilan
+2)      Kedamaian      	 7) Kesukarelaan
+3)      Kesamaan	 8) Kepemimpinan
+4)      Kenetralan    	9) Kesatuan
+5)      Kemandiriam	10) Kesemestaan
+Yang bukan termasuk ke dalam prinsip dasar gerakan palang merah dan bulan sabit merah internasional adalah…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question8"
+          value="a"
+        />
+        <span> a. 1,3,10</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question8"
+          value="b"
+        />
+        <span> b. 2,6,8</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question8"
+          value="c"
+        />
+        <span> c. 2,5,7</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question8"
+          value="d"
+        />
+        <span> d. 4,6,9</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+9. PMI atau Palang Merah Indonesia pertama kali diketuai oleh…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question9"
+          value="a"
+        />
+        <span> a. Drs. Moch Hatta</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question9"
+          value="b"
+        />
+        <span> b. Dr Buntaran Martoatmodjo</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question9"
+          value="c"
+        />
+        <span> c. Dr. Bahder Johan</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question9"
+          value="d"
+        />
+        <span> d. Ir Soekarno</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+10. Ada 4 jenis kebakaran di Indonesia. Yang merupakan pengertian dari kebakaran kelas C adalah…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question10"
+          value="a"
+        />
+        <span> a. Kebakaran yang melibatkan bahan bakar logam, seperti titanium, sodium, magnesium, potassium</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question10"
+          value="b"
+        />
+        <span> b. Kebakaran yang disebabkan oleh benda-benda yang mudah terbakar, yang biasanya berbentuk cairan seperti minyak tanah, bensin, solar</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question10"
+          value="c"
+        />
+        <span> c. Kebakaran yang disebabkan oleh listrik dan bahan kimia kering</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question10"
+          value="d"
+        />
+        <span> d. Kebakaran yang disebabkan benda-benda padat</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+11. Maksud dari prinsip dasar Kenetralan dalam Gerakan Palang Merah dan Bulan Sabit Merah Internasional adalah…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question11"
+          value="a"
+        />
+        <span> a. Pertolongan yang diberikan tujuannya untuk mengurangi penderitaan manusia sesuai dengan kebutuhannya dan mendahulukan keadaan yang paling parah</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question11"
+          value="b"
+        />
+        <span> b. Perhimpunan Nasional didirikan berdasarkan keinginan untuk memberikan pertolongan tanpa membedakan korban yang terluka dan menumbuhkan rasa saling pengertian</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question11"
+          value="c"
+        />
+        <span> c. Pelaksanaan bantuan bukanlah dengan keinginan untuk memperoleh keuntungan finansial namun dengan komitmen pribadi dan kesetiaan tujuan kemanusiaan</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question11"
+          value="d"
+        />
+        <span> d. Agar setiap saat mendapat kepercayaan dari semua pihak, Perhimpunan Nasional tidak boleh melibatkan diri dalam pertentangan, maupun memihak</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+12. Henry Dunant bersama dengan 4 warga Jenewa mendirikan Komite Internasional Pertolongan Korban Luka (The International Committee of Aid For the Wounded) yang sekarang disebut … pada tahun …
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question12"
+          value="a"
+        />
+        <span> a. ICRC, 1859</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question12"
+          value="b"
+        />
+        <span> b. PMI, 1945</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question12"
+          value="c"
+        />
+        <span> c. IFRC, 1963</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question12"
+          value="d"
+        />
+        <span> d. ICRC, 1863</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+13. Yang merupakan pengertian dari konflik adalah..
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question13"
+          value="a"
+        />
+        <span> a. Perbedaan yang ada di Masyarakat Indonesia</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question13"
+          value="b"
+        />
+        <span> b. Proses sosial antara dua orang atau lebih, dimana salah satu pihak berusaha meniadakan pihak yang lain</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question13"
+          value="c"
+        />
+        <span> c. Proses perubahan nilai dalam Masyarakat dalam proses yang lama hingga bertahun-tahun</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question13"
+          value="d"
+        />
+        <span> d. Keadaan dimana Masyarakat memihak kelompoknya sehingga menumbuhkan solidaritas yang sangat tinggi</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+14. Perhatikan gambar dibawah ! 
+<img height="300px" src="./style/14-lct.jpg" alt="">
+Dibawah ini, pernyataan yang paling tepat mengenai gambar di samping adalah .....
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question14"
+          value="a"
+        />
+        <span> a. Nomor 3 = Rongga tulang belakang yang berisi bumbung syaraf terbentuk dari rongga-rongga tulang belakang menyatu membentuk suatu kolom.</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question14"
+          value="b"
+        />
+        <span> b. Nomor 2 = Rongga panggul yang dibentuk oleh tulang – tulang panggul, berisi kantung kemih, sebagian usus besar dan organ reproduksi dalam.</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question14"
+          value="c"
+        />
+        <span> c. Nomor 1 = Rongga tengkorak yang berisi bumbung syaraf yang terbentuk dari rongga tulang belakang</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question14"
+          value="d"
+        />
+        <span> d. Nomor 4 = Rongga perut yang terletak di antara rongga dada dan rongga panggul. Dalam dunia medis dikenal dengan istilah abdomen. Di dalam rongga ini terdapat berbagai organ pencernaan dan kelenjar seperti lambung, usus, limpa, hati, empedu, pankreas dan lainnya.</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+15. Henry Dunant bersama dengan 4 warga Jenewa mendirikan Komite Internasional Pertolongan Korban Luka (The International Committee of Aid For the Wounded) yang sekarang disebut … pada tahun …
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question15"
+          value="a"
+        />
+        <span> a. ICRC, 1859</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question15"
+          value="b"
+        />
+        <span> b. PMI, 1945</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question15"
+          value="c"
+        />
+        <span> c. IFRC, 1963</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question15"
+          value="d"
+        />
+        <span> d. ICRC, 1863</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+16. Organ yang berfungsi untuk melakukan koordinasi dan kerjasama dengan bagian tubuh disebut dengan…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question16"
+          value="a"
+        />
+        <span> a. System kelenjar buntu</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question16"
+          value="b"
+        />
+        <span> b. System kemih</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question16"
+          value="c"
+        />
+        <span> c. System saraf</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question16"
+          value="d"
+        />
+        <span> d. Sistem peredaran darah</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+17. Siapa yang mengajukan usulan untuk mendirikan Perhimpunan Palang Merah Indonesia kepada pemerintah Belanda ?
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question17"
+          value="a"
+        />
+        <span> a. Drs. Moh Hatta dan Dr. RCL Senduk</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question17"
+          value="b"
+        />
+        <span> b. Dr. Djoehana dan Dr. Marzuki</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question17"
+          value="c"
+        />
+        <span> c. Dr. R.Mochtar dan Dr  Bahder Djohan</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question17"
+          value="d"
+        />
+        <span> d. Dr. RCL Senduk dan Dr. Bahder Djohan</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+18. Darah yang dapat dipindahkan adalah darah lengkap dan komponen darah. Komponen darah terdiri dari…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question18"
+          value="a"
+        />
+        <span> a. Plasma darah, sel darah merah, sel darah lengkap</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question18"
+          value="b"
+        />
+        <span> b. Plasma darah, jantung, sel darah biru</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question18"
+          value="c"
+        />
+        <span> c. Plasma darah, sel darah merah, ribosom</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question18"
+          value="d"
+        />
+        <span> d. Plasma darah, sel darah merah, keping-keping darah</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+20. Seorang siswa terjatuh dari tangga sekolahnya karena licin. Teman siswa tersebut kebetulan anggota PMR Wira di sekolahnya. Ketika melakukan penilaian, tanda dan gejala yang ditemukan adalah kaki korban nyeri dan kaku, terdengar suara berderik, serta adanya memar. Dari tanda dan gejala tersebut, dapat disimpulkan siswa tersebut mengalami .....
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question20"
+          value="a"
+        />
+        <span> a. Sprain</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question20"
+          value="b"
+        />
+        <span> b. Keracunan</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question20"
+          value="c"
+        />
+        <span> c. Fraktur</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question20"
+          value="d"
+        />
+        <span> d. Strain</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+21. Pak Hadi umur 42 tahun, yang memiliki tinggi badan 170 cm, berat badan 76 Kg berapkah IMT dari Pak Hadi….
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question21"
+          value="a"
+        />
+        <span> a. 26,2</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question21"
+          value="b"
+        />
+        <span> b. 26,4</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question21"
+          value="c"
+        />
+        <span> c. 26,3</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question21"
+          value="d"
+        />
+        <span> d. 26.5</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+23. Perhatikan obat-obat berikut.
+a) Antiperspirant
+b) Antiretroviral
+c) Antiaids
+d) Antiradiasi
+Yang merupakan obat bagi penderita AIDS adalah…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question23"
+          value="a"
+        />
+        <span> a. a)</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question23"
+          value="b"
+        />
+        <span> b. b)</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question23"
+          value="c"
+        />
+        <span> c. c)</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question23"
+          value="d"
+        />
+        <span> d. d) </span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+24. Perhatikan pernyataan berikut ini !
+1) Saat menurunkan tandu lakukan langkah di atas pada urutan selanjutnya
+2) Genggamlah pegangan tandu dengan baik
+3) Kencangkan otot punggung dan otot perut. Kepala tetap menghadap kedepan dalam posisi netral
+4) Punggung harus tetap lurus
+5) Pada saat mengangkat punggung harus tetap terkunci sebagai poros dan kekuatan kontraksi otot seluruhnya pada otot tungkai
+6) Tempatkan kaki pada jarak yang tepat
+Urutan yang tepat teknik mengangkat tandu adalah.... 
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question24"
+          value="a"
+        />
+        <span> a. 1-2-3-4-5-6</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question24"
+          value="b"
+        />
+        <span> b. 6-5-4-3-2-1</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question24"
+          value="c"
+        />
+        <span> c. 4-6-2-5-3-1</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question24"
+          value="d"
+        />
+        <span> d. 6-4-3-2-5-1</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+25. Kapan lambang Palang Merah di atas dasar putih secara resmi diakui sebagai tanda pengenal pelayanan medis angkatan bersenjata?
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question25"
+          value="a"
+        />
+        <span> a. 1860</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question25"
+          value="b"
+        />
+        <span> b. 1864</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question25"
+          value="c"
+        />
+        <span> c. 1946</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question25"
+          value="d"
+        />
+        <span> d. 1876</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+26. Lambang memiliki dua fungsi yaitu sebagai…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question26"
+          value="a"
+        />
+        <span> a. Tanda pengenal dan tanda perlindungan</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question26"
+          value="b"
+        />
+        <span> b. Tanda pengenal dan tanda kepedulian</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question26"
+          value="c"
+        />
+        <span> c. Tanda persatuan dan tanda persahabatan</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question26"
+          value="d"
+        />
+        <span> d. Tanda kesehatan dan tanda perlindungan</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+27. Berdasarkan posisi anatomis, terdapat tiga bidang khayal yang membagi tubuh menjadi 2 bagian yaitu .....
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question27"
+          value="a"
+        />
+        <span> a. Bidang medial = superior (atas) dan inferior (bawah)</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question27"
+          value="b"
+        />
+        <span> b. Bidang frontal = anterior (depan) dan posterior (belakang)</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question27"
+          value="c"
+        />
+        <span> c. Bidang transversal = kanan dan kiri</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question27"
+          value="d"
+        />
+        <span> d. Bidang frontal = superior (atas) dan inferior (bawah)</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+28. Berdasarkan waktunya, bencana dikelompokkan menjadi dua yaitu bencana yang terjadi secara tiba-tiba dan bencana yang terjadi secara perlahan. Banjir merupakan contoh bencana alam yang terjadi secara…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question28"
+          value="a"
+        />
+        <span> a. Secara tiba-tiba</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question28"
+          value="b"
+        />
+        <span> b. Secara terus-menerus</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question28"
+          value="c"
+        />
+        <span> c. Secara langsung</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question28"
+          value="d"
+        />
+        <span> d. Secara perlahan</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+29. Di suatu tempat, sekelompok PMR Wira menemukan korban dengan tanda dan gejala yaitu pernapasannya cepat dan nadi lambat, menggigil / gemetar, pupil mata melebar dan tidak bereaksi, serta kesadarannya menurun. Apakah yang terjadi pada korban jika dihubungkan dengan tanda dan gejala di atas…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question29"
+          value="a"
+        />
+        <span> a. Hipertemia</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question29"
+          value="b"
+        />
+        <span> b. Kelelahan panas</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question29"
+          value="c"
+        />
+        <span> c. Sengatan panas</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question29"
+          value="d"
+        />
+        <span> d. Hipotermia</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+30. Yang merupakan penyebab datangnya banjir adalah…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question30"
+          value="a"
+        />
+        <span> a. Pendangkalan dasar sungai, badai dan gelombang pasang, berkurangnya daerah resapan air, ombak besar di pelabuhan</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question30"
+          value="b"
+        />
+        <span> b. Berkurangnya daerah resapan air, gempa yang menimbulkan tsunami, penanganan sampah yang buruk, badai dan gelombang pasang</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question30"
+          value="c"
+        />
+        <span> c. Rusaknya bendungan atau saluran air, aktivitas gunung berapi, pendangkalan dasar sungai, penanganan sampah yang buruk</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question30"
+          value="d"
+        />
+        <span> d. Pendangkalan dasar sungau, rusaknya bendungan atau saluran air, pergeseran lempeng bumi, berkurangnya daerah resapan air</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+31. Bencana alam yang sering terjadi di wilayah tropis di antara garis balik utara dan Selatan, tetapi tidak terjadi di daerah-daerah yang sangat berdekatan dengan garis khatulistiwa adalah bencana…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question31"
+          value="a"
+        />
+        <span> a. Banjir</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question31"
+          value="b"
+        />
+        <span> b. Tanah longsor</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question31"
+          value="c"
+        />
+        <span> c. Kekeringan</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question31"
+          value="d"
+        />
+        <span> d. Angin topan</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+32. Suatu zat yang bila masuk dalam tubuh dalam jumlah tertentu dapat menyebabkan reaksi tubuh yang tidak diinginkan bahkan dapat menimbulkan kematian merupakan pengertian dari…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question32"
+          value="a"
+        />
+        <span> a. Kedaruratan medis</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question32"
+          value="b"
+        />
+        <span> b. Cedera jaringan lunak</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question32"
+          value="c"
+        />
+        <span> c. Cedera system otot rangka </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question32"
+          value="d"
+        />
+        <span> d. Keracunan</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+33. Jika ingin mendonorkan darah, calon pendonor darah datang ke UTD PMI. UTD adalah singkatan dari…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question33"
+          value="a"
+        />
+        <span> a. Usaha Transfusi Darah</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question33"
+          value="b"
+        />
+        <span> b. Usaha Transformasi Darah</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question33"
+          value="c"
+        />
+        <span> c. Unit Transfusi Darah</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question33"
+          value="d"
+        />
+        <span> d. Unit Transformasi Darah</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+34. Tingkat status awas pada gunung api di Indonesia artinya…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question34"
+          value="a"
+        />
+        <span> a. Gunung api dalam keadaan siap Meletus atau kritis</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question34"
+          value="b"
+        />
+        <span> b. Gunung api menunjukkan aktivitas yang cenderung di atas normal</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question34"
+          value="c"
+        />
+        <span> c. Gunung api sudah menunjukkan tanda-tanda akan Meletus</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question34"
+          value="d"
+        />
+        <span> d. Tidak ada gejala aktivitas magma</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+35. Salah satu fungsi darah adalah…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question35"
+          value="a"
+        />
+        <span> a. Mengganti sel-sel yang rusak</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question35"
+          value="b"
+        />
+        <span> b. Mengangkut oksigen dari sel tubuh ke paru-paru</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question35"
+          value="c"
+        />
+        <span> c. Mengangkut karbondioksida dari paru-paru ke sel tubuh</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question35"
+          value="d"
+        />
+        <span> d. Mengangkut sel-sel yang rusak</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+36. Keadaan bebas dari kotoran, termasuk diantaranya debu, sampah, dan bau merupakan pengertian dari….
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question36"
+          value="a"
+        />
+        <span> a. Kesehatan</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question36"
+          value="b"
+        />
+        <span> b. Kesehatan</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question36"
+          value="c"
+        />
+        <span> c. Gizi</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question36"
+          value="d"
+        />
+        <span> d. Gizi seimbang</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+37. Pada tanggal 5 September 1945 dibentuklah susunan kepanitiaan beranggotakan 5 orang dengan nama Panitia Lima yang diketuai oleh…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question37"
+          value="a"
+        />
+        <span> a. Dr. Djoehana</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question37"
+          value="b"
+        />
+        <span> b. Dr. Bahder Johan</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question37"
+          value="c"
+        />
+        <span> c. Dr. R. Mochtar</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question37"
+          value="d"
+        />
+        <span> d. Dr. Marzuki</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+38. Telah terjadi kebakaran di sebuah sekolah pada siang hari. Kebakaran disebabkan karena meledaknya sebuah gas di kantin sekolah. Salah satu korbannya adalah penjual yang gas nya meledak. Penjual tersebut mengalami luka bakar di daerah punggung, kedua tangan bagian belakang dan kedua kaki bagian belakang. Berapa persenkah luas daerah yang terbakar pada penjual tersebut ....
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question38"
+          value="a"
+        />
+        <span> a. A.9%</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question38"
+          value="b"
+        />
+        <span> b. 4,5%</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question38"
+          value="c"
+        />
+        <span> c. 45% </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question38"
+          value="d"
+        />
+        <span> d. 31,5% </span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+39. Zat gizi yang mengandung nutrisi tinggi adalah…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question39"
+          value="a"
+        />
+        <span> a. Sumber air</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question39"
+          value="b"
+        />
+        <span> b. Sumber pangan</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question39"
+          value="c"
+        />
+        <span> c. Sumber lemak</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question39"
+          value="d"
+        />
+        <span> d. A dan C benar</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+40. Pergerakan kerak bumi yang terjadi sejak jutaan tahun yang lalu menyebabkan terjadinya…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question40"
+          value="a"
+        />
+        <span> a. Gempa bumi</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question40"
+          value="b"
+        />
+        <span> b. Rangkaian gunung api</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question40"
+          value="c"
+        />
+        <span> c. Abrasi</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question40"
+          value="d"
+        />
+        <span> d. Tanah longsor</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+41. Keluarga yang berperilaku gizi seimbang, mampu mengenali dan mengatasi masalah gizi anggota keluarganya disebut dengan……
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question41"
+          value="a"
+        />
+        <span> a. Perilaku gizi seimbang</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question41"
+          value="b"
+        />
+        <span> b. Gizi</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question41"
+          value="c"
+        />
+        <span> c. Keluarga sadar gizi</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question41"
+          value="d"
+        />
+        <span> d. Makanan seimbang</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+42. Apa nama buku yang ditulis Henry Dunant tentang pengalamannya selama perang di Solferino?
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question42"
+          value="a"
+        />
+        <span> a. The Battle of Solferino</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question42"
+          value="b"
+        />
+        <span> b. A journey to Italy</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question42"
+          value="c"
+        />
+        <span> c. A Memory of Italy</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question42"
+          value="d"
+        />
+        <span> d. A Memory of Solferino</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+43. Bencana longsor yang terjadi jika tanah dan batuan bergerak pada permukaan landai yang rata atau bergelombang yang disebut bidang gelincir merupakan pengertian dari…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question43"
+          value="a"
+        />
+        <span> a. Longsoran rotasi</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question43"
+          value="b"
+        />
+        <span> b. Longsoran transalasi batu</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question43"
+          value="c"
+        />
+        <span> c. Longsoran runtuhan</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question43"
+          value="d"
+        />
+        <span> d. Longsoran translasi</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+44. Zat gizi yang mengandung nutrisi tinggi yang terdapat dalam beras, jagung, kentang, ubi dan singkong merupakan sumber zat gizi…..
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question44"
+          value="a"
+        />
+        <span> a. Sumber protein</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question44"
+          value="b"
+        />
+        <span> b. Sumber vitamin</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question44"
+          value="c"
+        />
+        <span> c. Sumber lemak</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question44"
+          value="d"
+        />
+        <span> d. Sumber kalori</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+45. Beberapa bentuk ketidakadilan gender antara lain…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question45"
+          value="a"
+        />
+        <span> a. Stereotipe, marginalisasi, dan koordinasi</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question45"
+          value="b"
+        />
+        <span> b. Diskriminasi, multi-talent, dan stereotipe</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question45"
+          value="c"
+        />
+        <span> c. Marginalisasi, subkordinasi, dan diskriminasi</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question45"
+          value="d"
+        />
+        <span> d. Violence, stereotipe, dan diskriminasi</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+46. Apa yang dimaksud dengan pemimpin ?
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question46"
+          value="a"
+        />
+        <span> a. Seseorang yang mempunyai tugas mengatur dan memerintah</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question46"
+          value="b"
+        />
+        <span> b. Orang yang memiliki motivasi dan rasa percaya diri tinggi</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question46"
+          value="c"
+        />
+        <span> c. Seseorang yang dapat memberikan pengaruh dan motivasi kepada diri dan orang lain</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question46"
+          value="d"
+        />
+        <span> d. Orang yang menyebabkan sekelompok orang mencontoh dirinya</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+47. Perhatikan pernyataan berikut !
+1) Kenali diri sendiri.
+2) Kenali orang lain
+3) Menyela pembicaraan
+4) Memberi pernyataan yang jelas.
+5) Memberi umpan balik
+6) Mengurung diri
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question47"
+          value="a"
+        />
+        <span> a. Aris</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question47"
+          value="b"
+        />
+        <span> b. Abi</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question47"
+          value="c"
+        />
+        <span> c. Artawan</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question47"
+          value="d"
+        />
+        <span> d. Adit</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+48. Yang bukan merupakan hal-hal yang mendukung komunikasi adalah…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question48"
+          value="a"
+        />
+        <span> a. 1 dan 4</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question48"
+          value="b"
+        />
+        <span> b. 2 dan 3</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question48"
+          value="c"
+        />
+        <span> c. 2 dan 5</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question48"
+          value="d"
+        />
+        <span> d. 3 dan 6</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+49. Berikut yang merupakan pengertian transfusi darah adalah…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question49"
+          value="a"
+        />
+        <span> a. Menyumbangkan darah ke orang lain</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question49"
+          value="b"
+        />
+        <span> b. Proses pemindahan darah dari orang yang sehat</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question49"
+          value="c"
+        />
+        <span> c. Proses pemindahan darah dari orang yang sakit</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question49"
+          value="d"
+        />
+        <span> d. Proses pemindahan darah untuk dibuang</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+50. Salah satu syarat yang tepat bagi calon pendonor darah adalah…
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question50"
+          value="a"
+        />
+        <span> a. Memiliki berat badan di atas 40kg</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question50"
+          value="b"
+        />
+        <span> b. Berusia antara 17-45 tahun</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question50"
+          value="c"
+        />
+        <span> c. Tekanan darah sistolik 100-160 mm Hg dan diastolik 50-100 mm Hg</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question50"
+          value="d"
+        />
+        <span> d. Kadar hemoglobin minimal 12,5 g/dl</span><br />
+      </li>
+      
+      <input
+        class="column btn-submit"
+        id="btn-submit"
+        type="submit"
+        value="Submit"
+        style="display: block"
+      />
+    </form>
+
+    <script src="./js/script.js"></script>
+  </body>
+</html>

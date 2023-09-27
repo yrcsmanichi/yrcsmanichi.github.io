@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CAKRA - LCT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.css"
+    />
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase.js"></script>
+    <link rel="stylesheet" href="./style/style.css" />
+    <script src="./js/config.js"></script>
+    <style>
+      .login-form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border-radius: 5px;
+      }
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      /* CSS untuk input dan textarea */
+      .login-ipt {
+        height: 30px;
+        border: none;
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      .login-ex {
+        border: none;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar"><h1 id="timer">START TIME</h1></nav>
+    <h2>CAKRA</h2>
+    <p style="text-align: center">______________________</p>
+    <img class="img-nav" src="./style/logo.png" alt="">
+    <h1 style="text-align: center">CAKRA LCT</h1>
+
+    <div id="done"></div>
+    <div class="column card">
+      <div id="loginned" style="display: block">
+        <div class="card-header">
+          <h2 class="text-center">Login</h2>
+        </div>
+        <div class="card-body">
+          <form class="login-form">
+            <div class="form-group">
+              <label for="text">Nama Tim:</label>
+              <input
+                type="text"
+                class="form-control login-ipt"
+                id="username"
+                placeholder="Namatim"
+              />
+            </div>
+            <div class="form-group">
+              <label for="text">Asal Sekolah:</label>
+              <input
+                type="text"
+                class="form-control login-ipt"
+                id="asal"
+                placeholder="Namatim"
+              />
+            </div>
+            <div class="form-group">
+              <label for="text">Ketua Tim:</label>
+              <input
+                type="text"
+                class="form-control login-ipt"
+                id="ketuaTeam"
+                placeholder="KetuaTeam"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="password">Aggota tim:</label>
+              <textarea
+                class="login-ex"
+                name="desc"
+                id="anggota"
+                cols="45"
+                rows="10"
+                placeholder="Nama
+nama
+nama"
+              ></textarea>
+            </div>
+            <br />
+            <button
+              class="column btn-submit"
+              type="button"
+              onclick="getUser()"
+              class="btn btn-primary"
+            >
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="column card">
+      <div id="loginned" style="display: block">
+        <div class="card-header">
+          <h2 class="text-center">Cek Nilai</h2>
+        </div>
+        <div class="card-body">
+          <form class="login-form">
+            <div class="form-group">
+              <label for="text">Nama Tim:</label>
+              <input
+                type="text"
+                class="form-control login-ipt"
+                id="cek-nilai-user"
+                placeholder="Namatim"
+              />
+            </div>
+            <br />
+            <button
+              class="column btn-submit"
+              type="button"
+              onclick="CekNIlai()"
+              class="btn btn-primary"
+            >
+              CEK
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <form id="quiz-form" style="display: none">
+      <li class="column card">
+        <p>
+          Perhatikan tahapan berikut! <br />
+          a) Periksa mulut pasien apakah ada sesuatu yang keluar
+          <br />
+          b) Upayakan memberi napas bantuan <br />
+          c) Bila gagal, upayakan perbaikan posisi dan coba ulangi pemberian
+          napas bantuan <br />
+          d) Letakkan tumit tangan sedikit di atas pusar. Hentakkan 5x ke atas
+          <br />
+          e) Baringkan pasien dalam posisi terlentang <br />
+          f) Bila gagal, berlutut sampai paha <br />
+          pasien diapit lutut penolong Prosedur heimlich maneuver yang tepat
+          adalah...
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question1"
+          value="a"
+        />
+        <span> a. a-c-d-e-f-c-b </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question1"
+          value="b"
+        />
+        <span> b. e-b-f-c-d-a </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question1"
+          value="c"
+        />
+        <span> c. e-b-c-f-d-a </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question1"
+          value="d"
+        />
+        <span> d. a-b-c-d-e-f </span><br />
+      </li>
+      <li class="column card">
+        <p>
+          Jeno adalah seorang pria berusia 30 tahun. Jeno merupakan orang yang
+          sangat suka makan dan jarang berolahraga. Alhasil berat badan Jeno
+          semakin hari semakin bertambah. Hingga jeno mengalami obesitas atau
+          kelebihan berat badan. Suatu hari Jeno sedang asik makan nasi goreng
+          sendiri, karena Jeno makan dengan sangat brutal dan terburu-buru, Jeno
+          pun tersedak. Langkah apakah yang harus dilakukan Jeno untuk mengatasi
+          tersedak...
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question2"
+          value="a"
+        />
+        <span> a. Heimlich maneuver dengan memeluk diri sendiri </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question2"
+          value="b"
+        />
+        <span> b. Chest trust dengan menggunakan permukaan kursi </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question2"
+          value="c"
+        />
+        <span> c. Chest trust dengan menggunakan alat makan </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question2"
+          value="d"
+        />
+        <span> d. Chest trust dengan menggunakan ujung kursi </span><br />
+      </li>
+      <li class="column card">
+        <p>Syok dapat diakibatkan oleh...</p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question3"
+          value="a"
+        />
+        <span>
+          a. Kegagalan pengambilan oksigen dan unsur nutrisi ke berbagai
+          tulang</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question3"
+          value="b"
+        />
+        <span>
+          b. Kelebihan pengangkutan karbondioksida dan unsur logam ke berbagai
+          jaringan</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question3"
+          value="c"
+        />
+        <span>
+          c. Kegagalan pengangkutan oksigen dan unsur gizi ke berbagai
+          jaringan</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question3"
+          value="d"
+        />
+        <span>
+          d. Kegagalan pengangkutan oksigen dan karbondioksida ke berbagai
+          bagian tubuh</span
+        ><br />
+      </li>
+      <li class="column card">
+        <p>
+          Gio seorang anak berusia 5 tahun ditemukan mengalami henti jantung.
+          Setelah diperhatikan ternyata Gio tidak terlihat jatuh pingsan,
+          penanganan yang tepat untuk Gio adalah...
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question4"
+          value="a"
+        />
+        <span>
+          a. Berikan CPR 2 menit dulu, lalu tinggalkan gio untuk mengaktifkan
+          sistem tanggapan darurat dan mengambil AED, lalu lanjutkan CPR dan
+          gunakan AED segera setelah tersedia</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question4"
+          value="b"
+        />
+        <span>
+          b. Tinggalkan Gio untuk mengangtifkan sistem tanggapan darurat dan
+          mengambil AED, lalu mulai CPR dan gunakan AED setelah tersedia</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question4"
+          value="c"
+        />
+        <span>
+          c. Berikan CPR selama 3 menit dengan kedalaman komperesi
+          100-120x/menit, lalu tinggalkan gio untuk mengangtifkan sistem
+          tanggapan darurat dan ambil AED, lalu lanjutkan CPR dan gunakan AED
+          segera setelah tersedia</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question4"
+          value="d"
+        />
+        <span>
+          d. Berikan AED pada gio, lalu aktifkan sistem tanggapan darurat, lalu
+          lakukan CPR selama 3 menit sampai gio sadar</span
+        ><br />
+      </li>
+      <li class="column card">
+        <p>
+          a) Kerusakan pada organ dalam tubuh pasien minim <br />
+          b) Arus bolak-balik lebih berbahaya dari arus searah
+          <br />
+          c) Segera evaluasi ABC pasien setelah terputus dari sumber listik
+          <br />
+          d) Segera lakukan RJP setelah pasien terputus dari sumber listrik
+          <br />
+          e) Kerusakan pada kulit pasien minim <br />
+          Berikut ini pernyataan-pernyataan yang paling tepat mengenai luka
+          bakar akibat...
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question5"
+          value="a"
+        />
+        <span> a. a,b, dan e </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question5"
+          value="b"
+        />
+        <span> b. c saja </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question5"
+          value="c"
+        />
+        <span> c. b dan d saja </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question5"
+          value="d"
+        />
+        <span> d. b, c, dan e saja </span><br />
+      </li>
+      <li class="column card">
+        <p>
+          Seorang anak berusia 3 tahun di temukan jatuh. Setelah di cek napas
+          anak tersebut tidak ada dan nadinya tidak teraba. Putra yang merupakan
+          ahli tenaga medis yang melihat anak tersebut hendak memberi bantuan
+          dengan melakukan kompresi dada. Kedalaman kompresi yang harus Putra
+          berikan pada anak tersebut adalah...
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question6"
+          value="a"
+        />
+        <span>
+          a. Minimal sepertiga dari diameter anteroposterior dada, sekitar 2
+          inci </span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question6"
+          value="b"
+        />
+        <span>
+          b. Minimum seperempat dari diameter anteriposterior, sekitar 5 cm </span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question6"
+          value="c"
+        />
+        <span>
+          c. Minimal sepertiga dari diameter anteroposterior, sekitar 5 inci </span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question6"
+          value="d"
+        />
+        <span>
+          d. Minimum sepertiga dari diameter anteroposterior, sekitar 5 cm </span
+        ><br />
+      </li>
+      <li class="column card">
+        <p>
+          Pada prinsip life saving, hal-hal yang harus dilakukan untuk
+          menghentikan proses luka bakar adalah...
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question7"
+          value="a"
+        />
+        <span>
+          a. Melepas pakaian yang mudah terbakar, cuci bagian trauma bakar
+          dengan air mengalir secukupnya, bawa penderita ke ruang terbuka yang
+          memiliki ventilasi baik </span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question7"
+          value="b"
+        />
+        <span>
+          b. Melepaskan baju yang mudah terbakar, cuci bagian trauma bakar
+          dengan sabun selama 15-20 menit, padamkan api di tubuh dengan air </span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question7"
+          value="c"
+        />
+        <span>
+          c. Melepaskan baju yang mudah terbakar, cuci bagian trauma bakar
+          dengan margarin secukupnya, segera bawa pasien ke ruang terbuka </span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question7"
+          value="d"
+        />
+        <span>
+          d. Melepaskan baju yang mudah terbakar, cuci bagian trauma bakar
+          dengan air secukupnya, bawa pasien ke ruang kedap udara </span
+        ><br />
+      </li>
+      <li class="column card">
+        <p>
+          Ketika luas luka bakar mencapai .... maka akan terjadi... Lengkapilah
+          pernyataan berikut...
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question8"
+          value="a"
+        />
+        <span>
+          a. 15-20%, pelepasan sitokin dan mediator inflamasi pada lesi </span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question8"
+          value="b"
+        />
+        <span> b. 20-15%, pelepasan mediator inflamasi pada lesi </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question8"
+          value="c"
+        />
+        <span>
+          c. 15-25%, pelepasan sitokin dan mediator inflamaai pada lesi </span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question8"
+          value="d"
+        />
+        <span> d. 15-20%, pelepasan protein dan lesi </span><br />
+      </li>
+      <li class="column card">
+        <p>Metode lund browder chart ditentukan menggunakan...</p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question9"
+          value="a"
+        />
+        <span> a. Jari tangan pasien anak-anak </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question9"
+          value="b"
+        />
+        <span> b. Tangan pasien anak-anak </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question9"
+          value="c"
+        />
+        <span> c. Telapak tangan pasien remaja </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question9"
+          value="d"
+        />
+        <span> d. Telapak tangan pasien anak-anak </span><br />
+      </li>
+      <li class="column card">
+        <p>
+          Berikut ini yang bukan termasuk tanda-tanda trauma inhalasi,
+          kecuali...
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question10"
+          value="a"
+        />
+        <span> a. Luka berat pada wajah </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question10"
+          value="b"
+        />
+        <span> b. Dahak mengandung arang </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question10"
+          value="c"
+        />
+        <span> c. Adanya timbunan sulfur di orofaring </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question10"
+          value="d"
+        />
+        <span> d. Terdapat riwayat terhindar dalam kepungan api </span><br />
+      </li>
+      <li class="column card">
+        <p>
+          Seorang remaja yang tidak diketahui namanya sedang berkendara
+          menggunakan sepeda motor ke Tabanan. Pada saat itu cuaca sedang
+          mendung, ia pun berkendara dengan sangat cepat dikarenakan ia tidak
+          membawa jas hujan. Di tengah tengah perjalanan ia pun berhenti di
+          sebuah indomart untuk membeli jas hujan, saat ia berusaha turun
+          kakinya tidak sengaja terkena knalpot sehingga kulit kakinya menjadi
+          eritema, tidak ada bula, kering serta terasa hipersensitif. Bagaimana
+          Klasifikasi dan luka yang ditimbulkan dari kejadian tersebut…
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question11"
+          value="a"
+        />
+        <span> a. Derajat 1 serta luka yang ditimbulkan berbekas </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question11"
+          value="b"
+        />
+        <span>
+          b. Derajat 2 serta luka yang ditimbulkan ada perubahan warna dan luka
+          minimal </span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question11"
+          value="c"
+        />
+        <span>
+          c. Derajat 3 serta luka yang ditimbulkan tidak berbekas dan tidak ada
+          perubahan warna </span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question11"
+          value="d"
+        />
+        <span>
+          d. Derajat 1 serta luka yang ditimbulkan tidak berbekas dan tidak ada
+          perubahan warna </span
+        ><br />
+      </li>
+      <li class="column card">
+        <p>
+          Seorang perawat Bernama John Hammond diminta untuk menangani salah
+          satu pasien yang terkena luka bakar, ia pun segera melakukan
+          penanganan. Tujuan dari penanganan luka bakar itu sendiri adalah…
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question12"
+          value="a"
+        />
+        <span> a. Restore form, Restore fungtion, Restore feling </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question12"
+          value="b"
+        />
+        <span> b. Resorte form, Restore function, Resort feeling </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question12"
+          value="c"
+        />
+        <span> c. Restore form, Restore function, Restore feeling </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question12"
+          value="d"
+        />
+        <span> d. Restore form, Restore function, Resorte feeling </span><br />
+      </li>
+      <li class="column card">
+        <p>
+          Seorang perawat Bernama John Hammond diminta untuk menangani salah
+          satu pasien yang terkena luka bakar, ia pun segera melakukan
+          penanganan. Tujuan dari penanganan luka bakar itu sendiri adalah…
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question13"
+          value="a"
+        />
+        <span> a. Restore form, Restore fungtion, Restore feling </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question13"
+          value="b"
+        />
+        <span> b. Resorte form, Restore function, Resort feeling </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question13"
+          value="c"
+        />
+        <span> c. Restore form, Restore function, Restore feeling </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question13"
+          value="d"
+        />
+        <span> d. Restore form, Restore function, Resorte feeling </span><br />
+      </li>
+      <li class="column card">
+        <p>
+          Ketika luas luka bakar mencapai… terjadi pelepasan…(…) dan mediator
+          inflamasi pada lesi yang memberi efek ke seluruh tubuh. Pasangan yang
+          tepat untuk mengisi barisan kosong diatas adalah…
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question14"
+          value="a"
+        />
+        <span>
+          a. 12-20% ; Sitoksin (Protein yang berperan dalam sistem imun tubuh) </span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question14"
+          value="b"
+        />
+        <span>
+          b. 15-20% ; Sitokin (Protein yang berperan dalam sistem imun tubuh) </span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question14"
+          value="c"
+        />
+        <span>
+          c. 15-20% ; Sitoksin (Protein yang berperan dalam sistem imun tubuh) </span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question14"
+          value="d"
+        />
+        <span>
+          d. 12-24% ; Sitoksin (Protein yang berperan dalam sistem imun tubuh) </span
+        ><br />
+      </li>
+      <li class="column card">
+        <p>
+          Dibawah ini yang bukan merupakan perubahan kardiovaskuler akibat daro
+          luka bakar yaitu…
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question15"
+          value="a"
+        />
+        <span> a. Penyempitan arteri perifer </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question15"
+          value="b"
+        />
+        <span> b. Kekuatan otot cor menurun </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question15"
+          value="c"
+        />
+        <span>
+          c. Hilangnya cairan dari luka menyebabkan hipotensi sistemik </span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question15"
+          value="d"
+        />
+        <span> d. Kekuatan otot cor meningkat </span><br />
+      </li>
+      <li class="column card">
+        <p>BMR disebut juga dengan…</p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question16"
+          value="a"
+        />
+        <span> a. Basal Metabolic Rating </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question16"
+          value="b"
+        />
+        <span> b. Bhasal Metabolic Rate </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question16"
+          value="c"
+        />
+        <span> c. Basal Metabolic Rate </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question16"
+          value="d"
+        />
+        <span> d. Bhasal Metabolic Rating </span><br />
+      </li>
+      <li class="column card">
+        <p>
+          Diandra adalah mantan anggota PMI yang sudah pension. Suatu pagi ia
+          pergi ke alun-alun Bersama pacarnya untuk sekedar jalan-jalan. Di
+          perjalanan ia pergi ke indomart dan ia melihat seorang remaja yang
+          terkena knalpot. Apa yang harus Diandra lakukan…
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question17"
+          value="a"
+        />
+        <span> a. Aliri luka dengan air mengalir</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question17"
+          value="b"
+        />
+        <span> b. Gunakan pasta gigi untuk menutupi luka</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question17"
+          value="c"
+        />
+        <span> c. Gunakan air mengalir dan juga sabun </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question17"
+          value="d"
+        />
+        <span> d. Biarkan saja</span><br />
+      </li>
+      <li class="column card">
+        <p>
+          I. Tekanan darah sistolik kurang dari 100 mmHg <br />
+          II. Kulit kebiruan <br />
+          III. Sakit kepala/pusing <br />
+          IV. Mual dan muntah <br />
+          V. Kulit dingin dan lembab <br />
+          VI. Nadi lemah <br />
+          VII. Kulit terasa kering dan nyeri <br />
+          Hal diatas yang bukan sama sekali ciri-ciri dari heat syncope adalah…
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question18"
+          value="a"
+        />
+        <span> a. III dan VI</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question18"
+          value="b"
+        />
+        <span> b. III dan VII</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question18"
+          value="c"
+        />
+        <span> c. II dan VII</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question18"
+          value="d"
+        />
+        <span> d. II DAN III</span><br />
+      </li>
+      <li class="column card">
+        <p>
+          Envy adalah seorang anak kecil yang hiperaktif. Suatu hari ia bermain
+          korek gas didalam kamarnya. Disaat jam makan siang dia di panggil oleh
+          ibunya dan tanpa ia sadari korek gas yang ia mainkan masih hidup dan
+          mengenai barang barang yang mudah terbakar. Disaat ia Kembali ke
+          kamarnya ia melihat kobaran api yang masih kecil, karena takut
+          dimarahi ia pun berusaha mematikan api tersebut. Naas nya kedua lengan
+          atas Envy terkena percikan api sehingga itu membuat kulitnya terbakar.
+          Selain itu terdapat beberapa luka bakar lainnya seperti pada leher
+          bagian belakang dan pada telapak tangan kanan.Dari pernyataan tersebut
+          berapakah total luka bakar sesuai dengan rule of nine yang ada…
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question19"
+          value="a"
+        />
+        <span> a. 6 ½ </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question19"
+          value="b"
+        />
+        <span> b. 5 ½ </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question19"
+          value="c"
+        />
+        <span> c. 11½ </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question19"
+          value="d"
+        />
+        <span> d. 10 ½ </span><br />
+      </li>
+      <li class="column card">
+        <p>
+          Dibawah ini yang bukan termasuk tanda-tanda trauma inhalasi adalah…
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question20"
+          value="a"
+        />
+        <span> a. Dahak mengandung karbon/arang </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question20"
+          value="b"
+        />
+        <span> b. Adanya timbunan karbon di orofaring</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question20"
+          value="c"
+        />
+        <span> c. Adanya timbunan CO2 dalam langit-langit mulut</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question20"
+          value="d"
+        />
+        <span> d. Adanya timbunan karbon di uvula dan amandel </span><br />
+      </li>
+      <li class="column card">
+        <p>Dibawah ini penanganan syok yang tepat adalah…</p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question21"
+          value="a"
+        />
+        <span>
+          a. Lakukan posisi miring stabil setelah mempertahankan panas
+          tubuh</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question21"
+          value="b"
+        />
+        <span>
+          b. Apabila pasien dalam keadaan sadar dan tidak ingin muntah, angkat
+          kaki setinggi 30cm jika tidak ada cedera tulang belakang</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question21"
+          value="c"
+        />
+        <span>
+          c. Apabila pasien dalam keadaan tidak sadar, angkat kaki setinggi 30cm
+          jika terdapat cedera tulang belakang</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question21"
+          value="d"
+        />
+        <span>
+          d. Naikan kepala dan bahu pasien apabila pasien tidak dalam keadaan
+          kesulitan bernafas</span
+        ><br />
+      </li>
+      <li class="column card">
+        <p>
+          Ketika luas luka bakar mencapai… terjadi pelepasan…(…) dan mediator
+          inflamasi pada lesi yang memberi efek ke seluruh tubuh. Pasangan yang
+          tepat untuk mengisi barisan kosong diatas adalah…
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question22"
+          value="a"
+        />
+        <span>
+          a. 12-20% ; Sitoksin (Protein yang berperan dalam sistem imun
+          tubuh)</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question22"
+          value="b"
+        />
+        <span>
+          b. 15-20% ; Sitokin (Protein yang berperan dalam sistem imun
+          tubuh)</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question22"
+          value="c"
+        />
+        <span>
+          c. 15-20% ; Sitoksin (Protein yang berperan dalam sistem imun
+          tubuh)</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question22"
+          value="d"
+        />
+        <span>
+          d. 12-24% ; Sitoksin (Protein yang berperan dalam sistem imun
+          tubuh)</span
+        ><br />
+      </li>
+      <li class="column card">
+        <p>
+          Dibawah ini yang bukan merupakan perubahan kardiovaskuler akibat daro
+          luka bakar yaitu…
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question23"
+          value="a"
+        />
+        <span> a. Penyempitan arteri perifer</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question23"
+          value="b"
+        />
+        <span> b. Kekuatan otot cor menurun</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question23"
+          value="c"
+        />
+        <span>
+          c. Hilangnya cairan dari luka menyebabkan hipotensi sistemik</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question23"
+          value="d"
+        />
+        <span> d. Kekuatan otot cor meningkat</span><br />
+      </li>
+      <li class="column card">
+        <p>
+          Berikut ini pernyataan yang paling tepat mengenai tipe pembalutan
+          roller bandage adalah...
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question24"
+          value="a"
+        />
+        <span>
+          a. Memilih pembalut pita dengan ukuran panjang yang sesuai dengan
+          bagian tubuh yang akan dibalut, pembalutan dimulai dari proksimal dan
+          bergerak ke distal, ujung pembalut yang pertama diikat dengan ujung
+          pembalut yang lain.</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question24"
+          value="b"
+        />
+        <span>
+          b. Memilih pembalut pita dengan ukuran lebar yang sesuai dengan bagian
+          tubuh yang akan di balut, pembalutan dimulai dari distal dan bergerak
+          ke proksimal untuk menutup sepanjang tubuh yang akan dibalut, kemudian
+          kembali dari proksimal ke distal dibebatkan dengan arah bebatan saling
+          menyilang dan tumpang tindih</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question24"
+          value="c"
+        />
+        <span>
+          c. Memilih pembalut pita dengan ukuran panjang yang sesuai dengan
+          jenis cedera yang akan di balut, pembalutan dimulai dari distal dan
+          bergerak ke proksimal untuk menutup sepanjang tubuh yang akan dibalut,
+          kemudian kembali dari proksimal ke distal dibebatkan dengan arah
+          bebatan saling menyilang dan tumpang tindih</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question24"
+          value="d"
+        />
+        <span>
+          d. Memilih pembalut pita dengan ukuran panjang yang sesuai dengan
+          bagian tubuh yang akan di balut, pembalutan dimulai dari distal dan
+          bergerak ke proksimal untuk menutup sepanjang tubuh yang akan dibalut,
+          kemudian kembali dari proksimal ke distal dibebatkan dengan arah
+          bebatan saling menumpuk cedera</span
+        ><br />
+      </li>
+      <li class="column card">
+        <p>
+          Penanganan pada pasien syok yang mengalami kesulitan bernapas, namun
+          pasien dalam keadaan sadar dan tidak ada kemungkinan muntah adalah...
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question25"
+          value="a"
+        />
+        <span>
+          a. Periksa ABC dan tangani seperlunya, longgarkan sabuk pasien,
+          naikkan kepala jika ada cedera tulang belakang, posisikan miring
+          stabil</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question25"
+          value="b"
+        />
+        <span>
+          b. Periksa ABC dan tangani seperlunya, pertahankan panas tubuh pasien,
+          jangan naikkan kepala dan bahu jika tidak ada cedera tulang belakang,
+          posisikan passive leg raising</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question25"
+          value="c"
+        />
+        <span>
+          c. Periksa ABC dan tangani seperlunya, pertahankan panas tubuh pasien,
+          naikkan kepala dan bahu jika tidak ada cedera tulang belakang, angkat
+          kaki 30 cm jika tidak ada cedera spinal</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question25"
+          value="d"
+        />
+        <span>
+          d. Periksa ABC dan tangani seperlunya, pertahankan panas tubuh pasien,
+          naikkan kepala dan bahu apabila tidak ada cedera spinal, posisikan
+          miring stabil jika tidak ada cedera tulang belakang</span
+        ><br />
+      </li>
+      <li class="column card">
+        <p>Lokasi tubuh yang sering terjadi dislokasi adalah...</p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question26"
+          value="a"
+        />
+        <span> a. Jari</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question26"
+          value="b"
+        />
+        <span> b. Jari dan bahu</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question26"
+          value="c"
+        />
+        <span> c. Lutut dan jari</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question26"
+          value="d"
+        />
+        <span> d. Semua benar</span><br />
+      </li>
+      <li class="column card">
+        <p>
+          Urutan teknik evakuasi direct ground lift yang paling tepat adalah...
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question27"
+          value="a"
+        />
+        <span>
+          a. Penolong berada di sisi kiri korban dan rapikan posisi korban,
+          masukkan tangan penolong dibawah tangan korban lalu tangan penolong
+          satu, dua, dan tiga yang berdekatan dilipat agar fiksasi lebih kuat,
+          angkat korban dengan aba-aba dan stabilkan posisi korban, kemudian
+          pindahkan korban ke tempat yang aman.</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question27"
+          value="b"
+        />
+        <span>
+          b. Penolong berjongkok di sisi kanan korban dan rapikan posisi korban,
+          masukkan tangan penolong dibawah tangan penolong lain lalu tangan
+          penolong satu, dua, dan tiga yang berdekatan dilipat agar fiksasi
+          lebih kuat, angkat korban dengan aba-aba dan stabilkan posisi korban,
+          kemudian letakkan korban pada tandu.</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question27"
+          value="c"
+        />
+        <span>
+          c. Penolong berada di sisi kanan korban dan rapikan posisi korban,
+          masukkan tangan penolong dibawah tangan korban lalu tangan penolong
+          satu, dua, dan tiga yang berdekatan disilang agar fiksasi lebih kuat,
+          angkat korban dengan aba-aba dan stabilkan posisi korban, kemudian
+          letakkan korban pada tandu.</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question27"
+          value="d"
+        />
+        <span>
+          d. Penolong berada di sisi kanan korban dan rapikan posisi korban,
+          masukkan tangan penolong dibawah tangan korban lalu tangan penolong
+          satu, dua, dan tiga yang berdekatan dilipat agar fiksasi lebih kuat,
+          angkat korban dengan aba-aba dan stabilkan posisi korban, kemudian
+          pindahkan korban ke tempat yang aman</span
+        ><br />
+      </li>
+      <li class="column card">
+        <p>
+          Kulit tidak mengalami kerusakan, tetapi jaringan dan pembuluh darah di
+          bawah permukaan kulit rusam sehingga terjadi perdarahan di bagian
+          dalam dengan area terbatas, merupakan pengertian dari...
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question28"
+          value="a"
+        />
+        <span> a. Luka tertutup</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question28"
+          value="b"
+        />
+        <span> b. Luka</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question28"
+          value="c"
+        />
+        <span> c. Perdarahan</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question28"
+          value="d"
+        />
+        <span> d. Luka terbuka</span><br />
+      </li>
+      <li class="column card">
+        <p>
+          Mang adalah seorang siswa SMA kelas 10 yang bersekolah di SMA Negeri 1
+          Bangli. Jarak rumah Mang dengan sekolah sangat jauh, maka dari itu ia
+          memutuskan untuk ngekos di salah satu kos'an khusus cowok yang berada
+          di jalan Bara. Suatu malam yang tenang Mang merasa lapar dan ingin
+          makan telur mata ayam, lalu ia pergi ke dapur dan memasak telur
+          tersebut. Malang nasib Mang, gas yang ia gunakan bocor dan menimbulkan
+          ledakan yang cukup besar, warga pun sontak terbangun mendengar ledakan
+          tersebut dan langsung mengeluarkan Mang dari dapur. Mang pun mengalami
+          luka bakar pada beberapa bagian tubuhnya yaitu bagian kaki kiri, kedua
+          lengannya, serta leher dan kepalanya. Berdasarkan hukum rule of nine.
+          Luas permukaan luka bakar yang di alami Mang adalah...
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question29"
+          value="a"
+        />
+        <span> a. 35%</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question29"
+          value="b"
+        />
+        <span> b. 45%</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question29"
+          value="c"
+        />
+        <span> c. 45,5%</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question29"
+          value="d"
+        />
+        <span> d. 44%</span><br />
+      </li>
+      <li class="column card">
+        <p>
+          Dilakukan pada pasien yang tidak sadar tetapi bernapas spontan atau
+          sadar tapi kesadarannya masih lemah, merupakan pengertian dari...
+        </p>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question30"
+          value="a"
+        />
+        <span> a. Pemberian RJP</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question30"
+          value="b"
+        />
+        <span> b. Recovery position</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question30"
+          value="c"
+        />
+        <span> c. Pemberian Terapi Cairan</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question30"
+          value="d"
+        />
+        <span> d. Penanganan syok</span><br />
+      </li>
+      <input
+        class="column btn-submit"
+        id="btn-submit"
+        type="submit"
+        value="Submit"
+        style="display: block"
+      />
+    </form>
+
+    <script src="./js/script.js"></script>
+  </body>
+</html>
