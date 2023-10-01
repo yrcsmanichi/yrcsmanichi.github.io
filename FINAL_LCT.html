@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CAKRA - LCT SERI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.css"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
+    />
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase.js"></script>
+    <link rel="stylesheet" href="./style/style.css" />
+    <script src="./js/config_final_lct.js"></script>
+    <style>
+      .login-form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border-radius: 5px;
+      }
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      /* CSS untuk input dan textarea */
+      .login-ipt {
+        height: 30px;
+        border: none;
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      .login-ex {
+        border: none;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <audio id="myAudio">
+      <source src="./style/lagu.ogg" type="audio/ogg" />
+      <source src="./style/lagu.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <canvas id="canvas" style="display: none"></canvas>
+    <nav class="navbar"><h1 id="timer">START TIME</h1></nav>
+    <h2>CAKRA</h2>
+    <p style="text-align: center">______________________</p>
+    <img class="img-nav" src="./style/logo.png" alt="" />
+    <h1 id="text-h" style="text-align: center">SOAL SERI LCT CAKRA 2023</h1>
+    <h3 id="t-info" style="text-align: center"></h3>
+
+    <div id="done"></div>
+    <div class="column card">
+      <div id="loginned" style="display: block">
+        <div class="card-header">
+          <h2 class="text-center">Login</h2>
+        </div>
+        <div class="card-body">
+          <form class="login-form">
+            <div class="form-group">
+              <label for="text"
+                >No Urut (Sesuai Absensi Yang Dikirimkan):</label
+              >
+              <input
+                type="text"
+                class="form-control login-ipt"
+                id="username"
+                placeholder="No Urut (Sesuai Absensi Yang Dikirimkan)"
+              />
+            </div>
+            <div class="form-group">
+              <label for="text">Asal Sekolah:</label>
+              <input
+                type="text"
+                class="form-control login-ipt"
+                id="asal"
+                placeholder="Asal Sekolah"
+              />
+            </div>
+            <div class="form-group">
+              <label for="text">Ketua Tim:</label>
+              <input
+                type="text"
+                class="form-control login-ipt"
+                id="ketuaTeam"
+                placeholder="KetuaTeam"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="password">Aggota tim:</label>
+              <textarea
+                class="login-ex"
+                name="desc"
+                id="anggota"
+                cols="45"
+                rows="10"
+                placeholder="Nama
+nama
+nama"
+              ></textarea>
+            </div>
+            <br />
+            <button
+              class="column btn-submit"
+              type="button"
+              onclick="getUser()"
+              class="btn btn-primary"
+            >
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="column card">
+      <div id="ceknilai" style="display: block">
+        <div class="card-header">
+          <h2 class="text-center">Cek Nilai</h2>
+        </div>
+        <div class="card-body">
+          <form class="login-form">
+            <div class="form-group">
+              <label for="text"
+                >No Urut (Sesuai Absensi Yang Dikirimkan):</label
+              >
+              <input
+                type="text"
+                class="form-control login-ipt"
+                id="cek-nilai-user"
+                placeholder="No Urut (Sesuai Absensi Yang Dikirimkan)"
+              />
+            </div>
+            <br />
+            <button
+              class="column btn-submit"
+              type="button"
+              onclick="CekNIlai()"
+              class="btn btn-primary"
+            >
+              CEK
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <form id="quiz-form" style="display: none">
+      <li class="column card">
+        <pre>
+1. Mengapa usulan mendirikan Palang Merah Indonesia pada masa penjajahan ditolak oleh pemerintah Belanda?
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question1"
+          value="a"
+        />
+        <span>
+          a. Karena mereka tidak tertarik dengan kegiatan kepalangmerahan</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question1"
+          value="b"
+        />
+        <span>
+          b. Karena pemerintah Belanda menganggap rakyat Indonesia belum mampu
+          mengatur organisasi palang merahnya sendiri</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question1"
+          value="c"
+        />
+        <span>
+          c. Karena pemerintah Belanda merasa perlu memerintah langsung dalam
+          urusan palang merah</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question1"
+          value="d"
+        />
+        <span>
+          d. Karena pemerintah Belanda menganggap rakyat Indonesia sebagai
+          ancaman</span
+        ><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+2. Yang merupakan pengertian dari kebutuhan praktis gender adalah...
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question2"
+          value="a"
+        />
+        <span>
+          a. Kebutuhan praktis gender merupakan respons untuk lebih mendekatkan
+          pada kebutuhan yang lebih spesifik.</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question2"
+          value="b"
+        />
+        <span>
+          b. Kebutuhan praktis gender merupakan kebutuhan yang mencakup hak
+          wanita</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question2"
+          value="c"
+        />
+        <span>
+          c. Kebutuhan praktis gender merupakan keadaan di mana perempuan
+          mementingkan lebih banyak keperluan dari laki-laki</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question2"
+          value="d"
+        />
+        <span>
+          d. Kebutuhan praktis gender merupakan kebutuhan agar hidup semakin
+          tentram.</span
+        ><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+3. Mengapa sejumlah pekerja sosial saat perang di Balkan tahun 1876 dibunuh oleh Ottoman ?
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question3"
+          value="a"
+        />
+        <span>
+          a. Karena mereka memakai ban lengan dengan gambar palang merah</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question3"
+          value="b"
+        />
+        <span> b. Karena mereka memakai lambang Bulan Sabit Merah</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question3"
+          value="c"
+        />
+        <span> c. Karena mereka membela Negara Swiss</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question3"
+          value="d"
+        />
+        <span> d. Karena mereka terlibat dalam perang Balkan</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+4. Andi adalah pria berusia 20 tahun yang ingin mendonorkan darahnya. Ia memiliki berat badan 70kg, kadar hemoglobin 16,5 g/dl dan tekanan darah sistolik 98 mm Hg. Andi adalah pria yang sehat, namun mengapa ia tidak disarankan oleh dokter untuk mendonorkan darahnya?
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question4"
+          value="a"
+        />
+        <span> a. Umur andi tidak memenuhi syarat</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question4"
+          value="b"
+        />
+        <span> b. Kadar hemoglobin Andi terlalu rendah</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question4"
+          value="c"
+        />
+        <span>
+          c. Tekanan darah sistolik Andi terlalu rendah dan tidak memenuhi
+          syarat</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question4"
+          value="d"
+        />
+        <span> d. Andi suka mengonsumsi makanan cepat saji</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+5. Kebakaran yang terjadi di salah satu rumah warga di Bogor, kelurahan Kedungbadak berhasil membakar bangunan rumah sekitar 75%, Api yang melahap rumah di pemukiman padat penduduk itu berhasil dipadamkan oleh 8 unit pemadam kebakaran dari Kota dan Kabupaten Bogor. Diduga kebakaran tersebut disebabkan karena adanya korsleting listrik pada rumah warga. Kebakaran yang terjadi pada kasus tersebut adalah kebakaran ?
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question5"
+          value="a"
+        />
+        <span> a. Kebakaran kelas A</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question5"
+          value="b"
+        />
+        <span> b. Kebakaran kelas B</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question5"
+          value="c"
+        />
+        <span> c. Kebakaran kelas C</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question5"
+          value="d"
+        />
+        <span> d. Kebakaran kelas D</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+6. Rani dirawat di rumah sakit karena mengalami luka bakar yang tidak terbatas bahkan sampai ke dalam tulang dan rongga dalam. Rani mengalami luka bakar yang tergolong ?
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question6"
+          value="a"
+        />
+        <span> a. Luka bakar derajat dua</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question6"
+          value="b"
+        />
+        <span> b. Luka bakar derajat tiga</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question6"
+          value="c"
+        />
+        <span> c. Luka bakar derajat empat</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question6"
+          value="d"
+        />
+        <span> d. Luka bakar tak terbatas</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+7. Malik adalah seorang siswa yang duduk di bangku kelas 6. Suatu hari, ia dan teman-temannya memanjat pohon mangga yang ada di dekat sekolah. Sayangnya, Malik terjatuh dari pohon mangga hingga tak sadarkan diri. Untuk menolong Malik, penilaian korban yang tepat untuk dilakukan adalah......
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question7"
+          value="a"
+        />
+        <span> a. Penilaian keadaan dan dilanjutkan penilaian fisik korban</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question7"
+          value="b"
+        />
+        <span>
+          b. Penilaian keadaan dan dilanjutkan penilaian dini yang meliputi
+          pemeriksaan fisik</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question7"
+          value="c"
+        />
+        <span>
+          c. Penilaian keadaan dan dilanjutkan penilaian dini yang meliputi
+          pemeriksaan respon, jalan napas, pernapasan, denyut nadi, dan
+          penilaian fisik</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question7"
+          value="d"
+        />
+        <span>
+          d. Penilaian keadaan sekitar dan dilanjutkan dengan penilaian dini
+          yang meliputi pemeriksaan respon dan denyut nadi</span
+        ><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+8. Pada suatu hari,  disebuah wilayah terjadi bencana tanah longsor. Menurut perkiraan BMKG, bencana tersebut terjadi akibat bergeraknya massa tanah dan batuan pada bidang gelincir berbentuk rata atau landai. Berdasarkan pernyataan tersebut, jenis longsoran yang dimaksud adalah...
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question8"
+          value="a"
+        />
+        <span> a. Longsoran rotasi</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question8"
+          value="b"
+        />
+        <span> b. Longsoran runtuhan</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question8"
+          value="c"
+        />
+        <span> c. Longsoran aliran</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question8"
+          value="d"
+        />
+        <span> d. Longsoran translasi</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+9. Adam berusia 20 tahun pada 9 Desember 2023. Adam memiliki tinggi badan 170 cm dengan berat badan 54 kg. Dari data tersebut diketahui bahwa Adam memiliki IMT dengan keterangan...
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question9"
+          value="a"
+        />
+        <span> a. Adam kurus, IMT 17,6</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question9"
+          value="b"
+        />
+        <span> b. Adam kurus, IMT 15,5</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question9"
+          value="c"
+        />
+        <span> c. Adam normal, IMT 18,7</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question9"
+          value="d"
+        />
+        <span> d. Adam gemuk, IMT 18,7 </span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+10. Haikal merupakan seorang siswa menengah keatas yang memiliki badan yang gemuk dan sulit untuk bergerak. Karena badannya ini Haikal sering dianggap sebagai seorang pemalas yang rakus dan suka makan dan membeci olahraga. Hal ini termasuk ketidakadilan gender yaitu...
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question10"
+          value="a"
+        />
+        <span> a. Multi-berden</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question10"
+          value="b"
+        />
+        <span> b. Violence</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question10"
+          value="c"
+        />
+        <span> c. Stereotipe</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question10"
+          value="d"
+        />
+        <span> d. Subordinasi</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+11.  Jika kalian tinggal di daerah dekat dengan gunung api, kemudian gunung api tersebut meletus dan memaksa kalian untuk mengungsi. Langkah pertama yang akan dilakukan setelah gunung api meletus adalah...
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question11"
+          value="a"
+        />
+        <span>
+          a. Membersihkan atap rumah dan jendela dari timbunan abu saat gunung
+          mulai meletus</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question11"
+          value="b"
+        />
+        <span>
+          b. Kembali ke rumah setelah gunung api meletus tanpa mencari info
+          lebih lanjut</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question11"
+          value="c"
+        />
+        <span> c. Kembali ke rumah saat keadaan benar benar aman</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question11"
+          value="d"
+        />
+        <span> d. Langsung membangun rumah baru di sekitar gunung api</span
+        ><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+12.  Pada prosedur penanganan pingsan, setelah korban ditidurkan terlentang dan ditinggikan tungkainya. Prosedur selanjutnya yang harus dilakukan penolong adalah .....
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question12"
+          value="a"
+        />
+        <span> a. Selimuti agar tidak kehilangan panas tubuh</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question12"
+          value="b"
+        />
+        <span> b. Jaga agar jalan nafas tetap baik</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question12"
+          value="c"
+        />
+        <span> c. Control perdarahan dan rawat cedera lainnya bila ada</span
+        ><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question12"
+          value="d"
+        />
+        <span> d. Longgarkan pakaian penderita</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+13. Kondisi gunung agung terkini diketahui sudah menunjukan tanda-tanda akan meletus, terjadi peningkatan kegiatan seismik. Untuk menanggulangi hal ini, pemerintah akan melakukan sosialisasi dan persiapan menghadapi situasi darurat dan melakukan koordinasi harian serta petugas akan melakukan piket penuh. Berdasarkan pernyataan diatas gunung Agung tengah berada pada status...
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question13"
+          value="a"
+        />
+        <span> a. Status awas</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question13"
+          value="b"
+        />
+        <span> b. Status siaga</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question13"
+          value="c"
+        />
+        <span> c. Status darurat</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question13"
+          value="d"
+        />
+        <span> d. Status waspada</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+14. Rara mengalami musibah ledakan di Cina hingga menyebabkan rara terluka-luka dan pingsan. Petugas ingin membantu Rara, tetapi Rara sebaiknya harus di pindahkan ke tempat yang lebih aman terlebih dahulu, pemindahan apakah yang harus dilakukan petugas tersebut?
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question14"
+          value="a"
+        />
+        <span> a. Pemindahan darurat</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question14"
+          value="b"
+        />
+        <span> b. Pemindahan biasa</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question14"
+          value="c"
+        />
+        <span> c. Pemindahan menggunakan tandu </span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question14"
+          value="d"
+        />
+        <span> d. Pemindahan tempat</span><br />
+      </li>
+
+      <li class="column card">
+        <pre>
+15. Gita sedang memasak lumpia yang dibelinya semalam, pada saat memasak tidak sengaja tangan Gita terkena percikan minyak panas yang menyebabkan terjadinya cedera pada permukaan kulit bagian atas (epidermis) dan untungnya tidak terlalu sampai ke dalam, jenis luka bakar yang dialami Gita yaitu....
+        </pre>
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question15"
+          value="a"
+        />
+        <span> a. Luka bakar derajat satu</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question15"
+          value="b"
+        />
+        <span> b. Luka bakar derajat dua</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question15"
+          value="c"
+        />
+        <span> c. Luka bakar derajat tiga</span><br />
+        <input
+          type="radio"
+          class="particles-checkbox"
+          name="question15"
+          value="d"
+        />
+        <span> d. Luka bakar derajat empat</span><br />
+      </li>
+
+      <input
+        class="column btn-submit"
+        id="btn-submit"
+        type="submit"
+        value="Submit"
+        style="display: block"
+      />
+    </form>
+
+    <script>
+      document.getElementById(
+        "t-info"
+      ).innerText = `${start}:${sm}:00 - ${end}:${endm}:00`;
+    </script>
+    <script src="./js/animate.js"></script>
+    <script src="./js/script_final_lct.js"></script>
+  </body>
+</html>
