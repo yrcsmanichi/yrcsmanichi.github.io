@@ -33,10 +33,10 @@ const startTime = new Date();
 const endTime = new Date();
 
 const start = 9; //jam
-const sm = 20; //menit
+const sm = 50; //menit
 
-const end = 24; //jam
-const endm = 15; //menit
+const end = 10; //jam
+const endm = 5; //menit
 firebase.initializeApp(firebaseConfig);
 
 startTime.setHours(start, 0, 0);
