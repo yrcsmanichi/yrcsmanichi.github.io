@@ -1,47 +1,68 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyAQBdoBDgQ_mKTnwnv6HWEKbv-B60y_scw",
-  authDomain: "cakra-c6d7b.firebaseapp.com",
-  databaseURL: "https://cakra-c6d7b-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "cakra-c6d7b",
-  storageBucket: "cakra-c6d7b.appspot.com",
-  messagingSenderId: "530949308317",
-  appId: "1:530949308317:web:a71317d692cb371a853974",
-  measurementId: "G-X8VGMPVFX8",
+  apiKey: "AIzaSyBEVGasd-9VY524jx9tQL4Rkzi0Zwq7mn8",
+  authDomain: "fasilitators.firebaseapp.com",
+  databaseURL:
+    "https://fasilitators-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "fasilitators",
+  storageBucket: "fasilitators.appspot.com",
+  messagingSenderId: "744679241873",
+  appId: "1:744679241873:web:36a5342acc3242789fa730",
+  measurementId: "G-MLH54WLRWC",
 };
 const correctAnswers = {
-  question1: "c",
-  question2: "d",
-  question3: "c",
-  question4: "a",
-  question5: "d",
-  question6: "d",
-  question7: "a",
-  question8: "a",
-  question9: "d",
-  question10: "b",
-  question11: "d",
-  question12: "c",
-  question13: "c",
-  question14: "b",
-  question15: "b",
-  question16: "c",
-  question17: "a",
-  question18: "c",
-  question19: "a",
-  question20: "c",
-  question21: "b",
-  question22: "b",
-  question23: "b",
-  question24: "b",
-  question25: "b",
-  question26: "d",
-  question27: "c",
-  question28: "a",
-  question29: "b",
-  question30: "b",
+  question1: "a", //
+  question2: "b", //
+  question3: "b",//
+  question4: "c",//
+  question5: "b",//
+  question6: "d",//
+  question7: "a",//
+  question8: "b",//
+  question9: "c", //
+  question10: "b",//
+  question11: "a",//
+  question12: "c",//
+  question13: "b",//
+  question14: "b",//
+  question15: "d",//
+  question16: "b",//
+  question17: "a",//
+  question18: "d",//
+  question19: "b",//
+  question20: "d",//
+  question21: "d", //gambaer
+  question22: "a", //22
+  question23: "a",
+  question24: "c",
+  question25: "a",
+  question26: "b",
+  question27: "a",
+  question28: "d",
+  question29: "a",
+  question30: "c",
+  question31: "a",
+  question32: "b",
+  question33: "c",
+  question34: "c",
+  question35: "c",
+  question36: "b",
+  question37: "c",
+  question38: "b",
+  question39: "b",
+  question40: "c",
+  question41: "a",
+  question42: "a",
+  question43: "d",
+  question44: "b",
+  question45: "d",
+  question46: "b",
+  question47: "d",
+  question48: "c",
+  question49: "d",
+  question50: "b",
 };
-const soal = 30;
-const score_ = 3.3;
+const soal = 50;
+const score_ = 2;
 const currentTime = new Date();
 const startTime = new Date();
 const endTime = new Date();

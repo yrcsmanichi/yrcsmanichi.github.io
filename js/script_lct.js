@@ -4,8 +4,13 @@ function getUser() {
   var ketuaTeam = document.getElementById("ketuaTeam").value;
   var anggota = document.getElementById("anggota").value;
   var score = 0;
+  var peserta = ['01', '02', '03', '04']
   if (currentTime >= startTime && currentTime <= endTime) {
     if (username && asal && ketuaTeam && anggota) {
+      if (!username.startsWith("0")) {
+        alert("GUNAKAN 0, contohnya 01");
+        return;
+      }
       var timRef = firebase.database().ref(`${username}/info`);
       var dataToSave = {
         asal: asal,
@@ -16,7 +21,7 @@ function getUser() {
 
       // Simpan data ke Firebase
       timRef
-        .push(dataToSave)
+        .set(dataToSave)
         .then(function () {
           console.log("Data berhasil disimpan ke Firebase!");
         })
@@ -41,7 +46,8 @@ function getUser() {
           quizCompleted = snapshot.val() || false;
 
           if (quizCompleted) {
-            document.getElementById("text-h").innerText = "SOAL TES PENGETAHUAN LOMBA CERDAS TANGKAS CAKRA 2023 \n KAMU SUDAH MENGERJAKAN TES INI, JIKA ERROR SILAHKAN HUBUNGI PANITIA"
+            document.getElementById("text-h").innerText =
+              "SOAL TES PENGETAHUAN LOMBA CERDAS TANGKAS CAKRA 2023 \n KAMU SUDAH MENGERJAKAN TES INI, JIKA ERROR SILAHKAN HUBUNGI PANITIA";
             document.getElementById("ceknilai").innerText =
               "KAMU SUDAH MENGERJAKAN TES INI, JIKA ERROR SILAHKAN HUBUNGI PANITIA";
             alert(
@@ -163,7 +169,7 @@ function getUser() {
 <li>Asal Sekolah: ${asal}</li>
 <li>Ketua Tim: ${ketuaTeam}</li>
 <li>Anggota Tim: <br>-${anggota.split("\n").join("<br>-")}</li>
-<li>SKOR: ${score}</li>
+<li>SKOR-FLOAT: ${score}</li>
 </ul>
 </div>
 </div>`;
@@ -213,6 +219,7 @@ function getUser() {
                   top: 0,
                   behavior: "smooth",
                 });
+                document.getElementById("canvas").style.display = "block";
                 var answers = {};
                 for (var i = 1; i <= 50; i++) {
                   var selectedInput = document.querySelector(
@@ -232,6 +239,14 @@ function getUser() {
                   }
                 }
 
+                const now = new Date();
+                const hour = String(now.getHours()).padStart(2, "0");
+                const minute = String(now.getMinutes()).padStart(2, "0");
+                const second = String(now.getSeconds()).padStart(2, "0");
+
+                var timeRef = firebase.database().ref(`${username}/time`);
+                timeRef.set(hour + ":" + minute + ":" + second);
+
                 var skorContainer = document.getElementById("done");
                 skorContainer.innerHTML = `
 <div class="card column mt-3" style="display: block">
@@ -245,6 +260,7 @@ function getUser() {
 <li>Ketua Tim: ${ketuaTeam}</li>
 <li>Anggota Tim: <br>-${anggota.split("\n").join("<br>-")}</li>
 <li>SKOR: ${score}</li>
+<li>TIME: ${hour}:${minute}:${second}</li>
 </ul>
 </div>
 </div>`;
@@ -320,11 +336,18 @@ function CekNIlai() {
             console.log(userAnswers);
 
             var totalPoin = 0;
+            var salah = 0;
+            var benar = 0;
+            var terjawab = 0;
             for (const question in userAnswers) {
               const answer = userAnswers[question];
+              terjawab += 1
               console.log(`Pertanyaan ${question}: Jawaban: ${answer}`);
               if (answer === correctAnswers[question]) {
-                totalPoin += 2; // Jika jawaban benar, tambahkan 2 poin
+                totalPoin += 100 / 15; // Jika jawaban benar, tambahkan 2 poin
+                benar += 1
+              } else {
+                salah += 1
               }
             }
             console.log(totalPoin);
@@ -342,9 +365,18 @@ function CekNIlai() {
             //     }
             //   }
             // }
+            let time;
+            firebase
+              .database()
+              .ref(`${user_nilai}/time`)
+              .on("value", function (snap) {
+                time = snap.val();
 
-            var skorContainer = document.getElementById("done");
-            skorContainer.innerHTML = `
+                const bobotSoal = 100 / soal;
+                const nilai = (benar * bobotSoal).toFixed(1);
+
+                var skorContainer = document.getElementById("done");
+                skorContainer.innerHTML = `
 <div class="card column mt-3" style="display: block">
 <div class="card-header">
 <h2 class="text-center">SKOR</h2>
@@ -352,10 +384,18 @@ function CekNIlai() {
 <div class="card-body">
 <ul>
 <li>Nama Tim: ${user_nilai}</li>
-<li>SKOR: ${totalPoin}</li>
+<li>SKOR: ${nilai}</li>
+<li>SKOR-FLOAT: ${totalPoin}</li>
+<li>TIME: ${time}</li>
+<li>SALAH: ${salah}</li>
+<li>BENAR: ${benar}</li>
+<li>TERJAWAB: ${terjawab}</li>
+<li>TIDAK TERJAWAB: ${soal - terjawab}</li>
 </ul>
 </div>
 </div>`;
+              });
+
             window.scrollTo({
               top: 0,
               behavior: "smooth",
