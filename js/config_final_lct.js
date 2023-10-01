@@ -32,8 +32,8 @@ const currentTime = new Date();
 const startTime = new Date();
 const endTime = new Date();
 
-const start = 10; //jam
-const sm = 30; //menit
+const start = 9; //jam
+const sm = 20; //menit
 
 const end = 24; //jam
 const endm = 15; //menit
