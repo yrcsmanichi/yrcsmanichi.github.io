@@ -350,7 +350,7 @@ function CekNIlai() {
                 totalPoin += 100 / 15; // Jika jawaban benar, tambahkan 2 poin
                 benar += 1;
               } else {
-                salah += 1;
+                salah += `Pertanyaan ${question}: Jawaban: ${answer}<br>`;
               }
             }
             console.log(totalPoin);
@@ -394,6 +394,7 @@ function CekNIlai() {
 <li>BENAR: ${benar}</li>
 <li>TERJAWAB: ${terjawab}</li>
 <li>TIDAK TERJAWAB: ${soal - terjawab}</li>
+<li>${salah}</li>
 </ul>
 </div>
 </div>`;
