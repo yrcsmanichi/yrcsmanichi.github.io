@@ -6,6 +6,10 @@ body {
   font: 0.9em/1.618 Inter, sans-serif;
   color: #224;
   background: url(bg.jpg) center/cover no-repeat fixed;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 pre {
@@ -35,7 +39,7 @@ pre {
 .card {
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.45);
+  background-color: rgba(255, 255, 255, 0.623);
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(15px);
   padding: 20px;
@@ -251,4 +255,16 @@ pre {
   backdrop-filter: blur(15px);
   margin-right: auto;
   display: block;
+}
+
+textarea {
+  width: 100%;
+}
+
+canvas {
+  overflow-y: hidden;
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  position: fixed;
 }
